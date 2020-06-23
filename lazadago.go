@@ -178,14 +178,7 @@ func (lc *LazadaClient) Execute(apiName string, apiMethod string, apiParams inte
 		}
 
 		for key, val := range lc.APIParams {
-			fw, err := writer.CreateFormField(key)
-			if err != nil {
-				return nil, err
-			}
-			_, err = fw.Write([]byte(val))
-			if err != nil {
-				return nil, err
-			}
+			_ = writer.WriteField(key, val)
 		}
 
 		if err = writer.Close(); err != nil {
