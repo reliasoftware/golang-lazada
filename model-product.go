@@ -46,3 +46,17 @@ type GetProductsResponse struct {
 	TotalProducts int             `json:"total_products"`
 	Products      []ProductDetail `json:"products"`
 }
+
+// GetProductsRequest response
+type GetProductsRequest struct {
+	Filter        string // all, live, inactive, deleted, image-missing, pending, rejected, sold-out
+	Limit         string
+	Offset        string
+	UpdateBefore  string
+	Search        string
+	CreateBefore  string
+	CreateAfter   string
+	UpdateAfter   string
+	Options       string
+	SkuSellerList string
+}

@@ -17,5 +17,6 @@ var availablePaths map[string]string = map[string]string{
 	// Orders
 	//=======================================================
 
-	"GetOrders": "orders/get",
+	"GetOrders":     "orders/get",
+	"GetOrderItems": "order/items/get",
 }
