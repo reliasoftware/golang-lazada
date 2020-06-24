@@ -47,7 +47,6 @@ type LazadaClient struct {
 	APIKey    string
 	APISecret string
 
-	APIPath    string
 	Method     string
 	SysParams  map[string]string
 	APIParams  map[string]string
@@ -152,6 +151,12 @@ func (lc *LazadaClient) Execute(apiName string, apiMethod string, apiParams inte
 	var req *http.Request
 	var err error
 	var contentType string
+
+	// bodyParams, err := json.Marshal(apiParams)
+	// if err != nil {
+	// 	return nil, err
+	// }
+
 	// add query params
 	values := url.Values{}
 	for key, val := range lc.SysParams {
