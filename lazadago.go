@@ -236,6 +236,22 @@ type Client interface {
 
 	// GetSeller Use this call to get information of shop
 	GetSeller() (*GetShopInfoResponse, error)
+
+	//=======================================================
+	// Products
+	//=======================================================
+
+	// GetProducts Use this call to get information of shop
+	GetProducts() (*GetProductsResponse, error)
+
+	//=======================================================
+	// Orders
+	//=======================================================
+
+	// GetProducts Use this call to get information of shop
+	GetOrders() (*GetOrdersResponse, error)
+	GetOrderItems() (*GetOrderItemsResponse, error)
+	SetStatusToReadyToShip() (*GetShopInfoResponse, error)
 }
 
 //=======================================================
@@ -245,6 +261,74 @@ type Client interface {
 // GetSeller Use this call to get information of shop
 func (lc *LazadaClient) GetSeller() (resp *GetShopInfoResponse, err error) {
 	b, err := lc.Execute("GetShopInfo", "GET", nil)
+
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(b.Data, &resp)
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+//=======================================================
+// Products
+//=======================================================
+
+// GetProducts get
+func (lc *LazadaClient) GetProducts() (resp *GetProductsResponse, err error) {
+	b, err := lc.Execute("GetShopInfo", "GET", nil)
+
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(b.Data, &resp)
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+//=======================================================
+// Orders
+//=======================================================
+
+// GetOrders get
+func (lc *LazadaClient) GetOrders() (resp *GetOrdersResponse, err error) {
+	b, err := lc.Execute("GetShopInfo", "GET", nil)
+
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(b.Data, &resp)
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+// GetOrderItems get
+func (lc *LazadaClient) GetOrderItems() (resp *GetOrderItemsResponse, err error) {
+	b, err := lc.Execute("GetShopInfo", "GET", nil)
+
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(b.Data, &resp)
+
+	if err != nil {
+		return
+	}
+	return
+}
+
+// SetStatusToReadyToShip post
+func (lc *LazadaClient) SetStatusToReadyToShip(params *SetStatusToReadyToShipRequest) (resp *GetShopInfoResponse, err error) {
+	b, err := lc.Execute("SetStatusToReadyToShip", "POST", nil)
 
 	if err != nil {
 		return

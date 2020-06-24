@@ -40,11 +40,9 @@ func TestGetProduct(t *testing.T) {
 	// fmt.Printf("resp:%v, err:%v\n", string(resp.Data), err)
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// fmt.Fprintln(w, "I am a super server")
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte(`{"data": {"name": "Maka", "short_code": "developer@jhonmike.com.br"}}`))
-		// })
 	}))
 	defer ts.Close()
 

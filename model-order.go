@@ -116,3 +116,11 @@ type OrderItem struct {
 type GetOrderItemsResponse struct {
 	Items []OrderItem `json:"items"`
 }
+
+// SetStatusToReadyToShipRequest api request
+type SetStatusToReadyToShipRequest struct {
+	DeliveryType     int64  `json:"delivery_type"`
+	OrderItemIds     string `json:"order_item_ids"`
+	ShipmentProvider string `json:"shipment_provider"`
+	TrackingNumber   string `json:"tracking_number"`
+}
