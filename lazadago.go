@@ -80,8 +80,8 @@ func (lc *LazadaClient) Debug(enableDebug bool) *LazadaClient {
 	return lc
 }
 
-// AccessToken setter
-func (lc *LazadaClient) AccessToken(accessToken string) *LazadaClient {
+// SetAccessToken setter
+func (lc *LazadaClient) SetAccessToken(accessToken string) *LazadaClient {
 	lc.SysParams["access_token"] = accessToken
 	return lc
 }
@@ -147,15 +147,15 @@ func (lc *LazadaClient) getPath(apiName string) string {
 }
 
 // Execute sends the request though http.request and collect the response
-func (lc *LazadaClient) Execute(apiName string, apiMethod string, apiParams interface{}) (*Response, error) {
+func (lc *LazadaClient) Execute(apiName string, apiMethod string, bodyParams interface{}) (*Response, error) {
 	var req *http.Request
 	var err error
 	var contentType string
 
-	// bodyParams, err := json.Marshal(apiParams)
-	// if err != nil {
-	// 	return nil, err
-	// }
+	bodyData, err := json.Marshal(bodyParams)
+	if err != nil {
+		return nil, err
+	}
 
 	// add query params
 	values := url.Values{}
@@ -182,7 +182,7 @@ func (lc *LazadaClient) Execute(apiName string, apiMethod string, apiParams inte
 			}
 		}
 
-		for key, val := range lc.APIParams {
+		for key, val := range bodyData {
 			_ = writer.WriteField(key, val)
 		}
 
@@ -251,7 +251,7 @@ type Client interface {
 	// GetProducts Use this call to get information of shop
 	GetOrders() (*GetOrdersResponse, error)
 	GetOrderItems() (*GetOrderItemsResponse, error)
-	SetStatusToReadyToShip() (*GetShopInfoResponse, error)
+	SetStatusToReadyToShip(*SetStatusToReadyToShipRequest) (*GetShopInfoResponse, error)
 }
 
 //=======================================================
@@ -327,7 +327,7 @@ func (lc *LazadaClient) GetOrderItems() (resp *GetOrderItemsResponse, err error)
 }
 
 // SetStatusToReadyToShip post
-func (lc *LazadaClient) SetStatusToReadyToShip(params *SetStatusToReadyToShipRequest) (resp *GetShopInfoResponse, err error) {
+func (lc *LazadaClient) SetStatusToReadyToShip(req *SetStatusToReadyToShipRequest) (resp *GetShopInfoResponse, err error) {
 	b, err := lc.Execute("SetStatusToReadyToShip", "POST", nil)
 
 	if err != nil {
