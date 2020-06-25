@@ -36,16 +36,16 @@ const (
 
 // ClientOptions params
 type ClientOptions struct {
-	ServerURL string
 	APIKey    string
 	APISecret string
+	Region    string
 }
 
 // LazadaClient represents a client to Lazada
 type LazadaClient struct {
-	ServerURL string
 	APIKey    string
 	APISecret string
+	Region    string
 
 	Method     string
 	SysParams  map[string]string
@@ -56,7 +56,7 @@ type LazadaClient struct {
 // NewClient init
 func NewClient(opts *ClientOptions) Client {
 	return &LazadaClient{
-		ServerURL: opts.ServerURL,
+		Region:    opts.Region,
 		APIKey:    opts.APIKey,
 		APISecret: opts.APISecret,
 		SysParams: map[string]string{
@@ -146,6 +146,24 @@ func (lc *LazadaClient) getPath(apiName string) string {
 	return fmt.Sprintf("%s", availablePaths[apiName])
 }
 
+func (lc *LazadaClient) getServerURL() string {
+	switch lc.Region {
+	case "SG":
+		return APIGatewaySG
+	case "MY":
+		return APIGatewayMY
+	case "VN":
+		return APIGatewayVN
+	case "TH":
+		return APIGatewayTH
+	case "PH":
+		return APIGatewayPH
+	case "ID":
+		return APIGatewayID
+	}
+	return ""
+}
+
 // Execute sends the request though http.request and collect the response
 func (lc *LazadaClient) Execute(apiName string, apiMethod string, bodyParams interface{}) (*Response, error) {
 	var req *http.Request
@@ -199,8 +217,10 @@ func (lc *LazadaClient) Execute(apiName string, apiMethod string, bodyParams int
 	}
 
 	apiPath := lc.getPath(apiName)
+	apiServerURL := lc.getServerURL()
+
 	values.Add("sign", lc.sign(apiPath))
-	fullURL := fmt.Sprintf("%s%s?%s", lc.ServerURL, apiPath, values.Encode())
+	fullURL := fmt.Sprintf("%s%s?%s", apiServerURL, apiPath, values.Encode())
 	req, err = http.NewRequest(apiMethod, fullURL, body)
 
 	if err != nil {

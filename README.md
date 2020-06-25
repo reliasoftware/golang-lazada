@@ -5,7 +5,7 @@
 var clientOptions = ClientOptions{
   APIKey:    apiKey,
   APISecret: apiSecret,
-  ServerURL: ts.URL,
+  Region: "VN",
 }
 
 lc := NewClient(&clientOptions)
