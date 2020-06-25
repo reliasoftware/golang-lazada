@@ -86,6 +86,12 @@ func (lc *LazadaClient) SetAccessToken(accessToken string) *LazadaClient {
 	return lc
 }
 
+// ChangeRegion setter
+func (lc *LazadaClient) ChangeRegion(region string) *LazadaClient {
+	lc.Region = region
+	return lc
+}
+
 // AddAPIParam setter
 func (lc *LazadaClient) AddAPIParam(key string, val string) *LazadaClient {
 	lc.APIParams[key] = val
