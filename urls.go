@@ -5,7 +5,7 @@ var availablePaths map[string]string = map[string]string{
 	// Shop
 	//=======================================================
 
-	"GetSeller": "seller/get",
+	"GetShopInfo": "seller/get",
 
 	//=======================================================
 	// Products

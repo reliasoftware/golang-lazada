@@ -260,8 +260,8 @@ type Client interface {
 	// Shop
 	//=======================================================
 
-	// GetSeller Use this call to get information of shop
-	GetSeller() (*GetShopInfoResponse, error)
+	// GetShopInfo Use this call to get information of shop
+	GetShopInfo() (*GetShopInfoResponse, error)
 
 	//=======================================================
 	// Products
